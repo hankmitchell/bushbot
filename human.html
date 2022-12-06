@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bushbot human detect</title>
+</head>
+
+
+<body>
+    <style>
+        html {
+background:#000000a6;
+
+}
+
+
+        * {
+            font-family: 'Segoe UI', sans-serif;
+        }
+    </style>
+
+    <div style="max-width:1000px; padding:20px;text-align:left;margin:auto;">
+        <div style="margin:auto;">
+            <div id="bdbb">
+                <div id="main">
+                    <div id="ghostForm">
+                        <h1>The Bushbot loves humans:</h1><br>
+                            <br>
+                            <div style="font-size: 20px;">
+                                <div onmouseenter="cheat()" id="ghost" style="padding: 7px;color:white;background: #b5adad;width: 20%;">k7rtg</div><br>
+                                <img src="https://abs-0.twimg.com/emoji/v2/svg/1f916.svg" style="    width: 18px;">
+                                <b id="bloat" style="/* font-size: 12px; */margin:12px"> Prove you are human: Type the characters you see
+                                    above (not case sensitive):</b><br><br>
+                                <input type="text" id="bbc" name="challenge" style="width: 40%;font-size: 30px;" required="" onkeyup="keyStroke()">
+                                <br><br><button onclick="process()" style="
+        font-size: 30px;
+    ">Submit</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+<script>
+    function keyStroke(){
+        var el = document.getElementById('bbc');
+        el.value = el.value.toUpperCase();
+        if (el.value.length==5){
+            process();
+        }
+
+    }
+
+
+
+
+    function process() {
+        // var str = document.getElementById("fback").value;
+        // var fback64 = btoa(unescape(encodeURIComponent(str)));
+        if (localStorage.fixxee.toUpperCase() == document.getElementById("bbc").value.trim().toUpperCase()) {
+            document.cookie = "photoUpload=123; expires=31 Dec 2028 12:00:00 UTC; path=/";
+            document.cookie = "jsSupport=123; expires=31 Dec 2028 12:00:00 UTC; path=/";
+            location.assign('donatephotos/');
+            // if (location.href.match(/upload/)) {
+            //     console.log("correct captured");
+
+            //     document.cookie = "photoUpload=123; expires=31 Dec 2028 12:00:00 UTC; path=/";
+            //     location.assign('donatephotos/');
+            //     return;
+            // }
+            // console.log("correct captured");
+            // document.getElementById("ghostForm").innerHTML = `Thanks!`;
+            // document.cookie = "jsSupport=123; expires=31 Dec 2028 12:00:00 UTC; path=/";
+            
+
+        } else {
+            document.getElementById("bloat").innerHTML =
+                '<span style="color:red">WRONG CODE.</span> <button onclick="location.assign(`?ffrest`)">reset code</button>';
+        }
+    }
+
+
+
+
+
+
+
+
+
+    function cheat() {
+        document.getElementById("ghost").innerHTML = '-----';
+        document.getElementById("bloat").innerHTML =
+            '<span style="color:red">No cheating.</span> <button onclick="fix()">reset code</button>';
+    }
+
+    function fix() {
+        document.getElementById("ghost").innerHTML = localStorage.fixxee;
+        document.getElementById("bloat").innerHTML = "Prove you are human: Type the characters you see above:";
+    }
+
+    if (localStorage.comments) {
+        document.getElementById("fback").value = localStorage.comments;
+    }
+    var rv = '';
+    var rvarr = `23456789zxcvbnmkjhgfdsaqwertyuip`.split('');
+    shuffle(rvarr);
+    for (let i = 0; i < 5; i++) {
+        rv += rvarr[i];
+    } 
+    rv=rv.toUpperCase();
+    localStorage.bogeyman = btoa(rv);
+    localStorage.fixxee = rv;
+
+    document.getElementById("ghost").innerHTML = rv;
+    //document.getElementById("ghost").style.display = "none";
+    if (location.href.match(/preload/)) {
+        var pl = location.href.replace(/[\s\S]+=/, '');
+        document.getElementById("fback").value = pl;
+
+    }
+
+
+
+    function shuffle(a) {
+        var c = a.length,
+            t, r;
+        while (0 !== c) {
+            r = Math.floor(Math.random() * c);
+            c -= 1;
+            t = a[c];
+            a[c] = a[r];
+            a[r] = t;
+        }
+        return a;
+    }
+</script>
+
+<script src="fix.js"></script>

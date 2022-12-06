@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <script>
+        var s =
+            `https://twitter.com/search?q=from%3Abushdrooler%20since%3A2018-01-01%20until%3A2018-03-27&src=typeahead_click&f=top`;
+
+        var s2 =
+            `https://twitter.com/search?q=from%3Abushdrooler%20since%3ADATE0-DATE1%20until%3ADATE2-DATE3&src=typeahead_click&f=top`;
+        var days = `1,7,14,21,31`.trim().split(",");
+        var months = `1,2,3,4,5,6,7,8,9,10,11,12`.trim().split(",");
+        var years = `2019,2020,2021,2022`.trim().split(",");
+        var statck =
+            `
+        
+        https://twitter.com/search?q=from%3Abushdrooler%20since%3AYEAR-MONTH-01%20until%3AYEAR-MONTH-07&src=typeahead_click&f=top,
+        
+        https://twitter.com/search?q=from%3Abushdrooler%20since%3AYEAR-MONTH-08%20until%3AYEAR-MONTH-14&src=typeahead_click&f=top,
+        
+        https://twitter.com/search?q=from%3Abushdrooler%20since%3AYEAR-MONTH-15%20until%3AYEAR-MONTH-21&src=typeahead_click&f=top,
+        
+        https://twitter.com/search?q=from%3Abushdrooler%20since%3AYEAR-MONTH-22%20until%3AYEAR-MONP1-1&src=typeahead_click&f=top`;
+
+        var arr = [];
+        for (let a of years) {
+            for (let b of months) {
+                var k = parseInt(b) + 1;
+                var df = statck.trim().replace(/MONTH/ig, b).replace(/MONP1/, k).replace(/YEAR/ig, a);
+                for (let x of df.split(","))
+                    arr.push(x.trim());
+            }
+        }
+        var t = [];
+        for (var i = 0; i < 71; i++) {
+            var d1 = arr[i];
+            var d2 = arr[i + 1];
+            t.push(s2.replace(/DATE0/, d1).replace(/DATE1/, d2));
+        }
+        var out = '';
+        for (let a of arr) {
+            var nnn  = a.replace(/[\s\S]+until/ig,'until').replace(/&[\s\S]+/,'').replace(/%../, '-');
+            out += `<a target="_blank" href="${a}">${nnn}</a><br>\n`;
+        }
+        main.innerHTML = out;
+        main.innerHTML += `<textarea>${JSON.stringify(t)}</textarea>`;
+
+        function scanForIDs() {
+            //var bblinks = JSON.parse(localStorage.bblinks);
+            var links = [];
+            for (let a of document.getElementsByTagName('a')) {
+                if (a.href.match(/status/)) {
+                    var h = a.href.replace(/[\s\S]+status\//ig, '');
+                    h = h.replace(/\/photo[\s\S]+/ig, '');
+                    links.push(h);
+                }
+            }
+            links = Array.from(new Set(links));
+
+            for (let a of links) {
+                bblinks.push(a);
+            }
+            bblinks = Array.from(new Set(bblinks));
+            bblinks.sort();
+            localStorage.bblinks = JSON.stringify(bblinks);
+            console.log(bblinks.length);
+
+
+
+
+
+
+            var bblinks = JSON.parse(localStorage.bblinks);
+            var sdf = [];
+            for (let a of bblinks) {
+                var h = a.replace(/[\s\S]+status\//ig, '');
+                h = h.replace(/\/analytics[\s\S]?/ig, '');
+                sdf.push(h);
+            }
+            sdf = Array.from(new Set(sdf));
+            sdf.sort();
+            localStorage.bblinks = JSON.stringify(sdf);
+            document.body.innerHTML = localStorage.bblinks;
+        }
+
+
+
+        function dllinks() {
+            var links = [];
+            var nname = location.href.replace(/[\s\S]+until/ig,'until').replace(/&[\s\S]+/,'').replace(/%../, '-');
+            for (let a of document.getElementsByTagName('a')) {
+                if (a.href.match(/status/)) {
+                    var h = a.href.replace(/[\s\S]+status\//ig, '');
+                    h = h.replace(/\/photo[\s\S]+/ig, '');
+                    links.push(h);
+                }
+            }
+            links = Array.from(new Set(links));
+            var m = [];
+            m[0] = JSON.stringify(links);
+            var myBlob = new Blob(m, {
+                type: 'text/html'
+            });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = nname + ".html";
+            console.log(`found ${links.length}`);
+            link.click();
+        }
+    </script>
+</body>
+
+</html>
